@@ -69,6 +69,7 @@ void DelDeque4(std::deque<int> &deque) {
     iter = deque.erase(++iter);
   }
 
+  std::cout << "Результат" << std::endl;
   for (auto iter_deq = deque.begin(); iter_deq != deque.end(); iter_deq++) {
     std::cout << *iter_deq << " ";
   }

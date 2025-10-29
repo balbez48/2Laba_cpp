@@ -1,8 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <deque>
-#include <list>
-#include <algorithm>
 #include "Laba2.h"
 
 
@@ -266,7 +261,7 @@ int main() {
         std::cout << "Введите количество элементов в списке: ";
         while (f) {
             std::cin >> n;
-            if (n % 2 == 0 && n > 0) {
+            if (n > 0) {
                 f = 0;
             }
             else {
@@ -284,6 +279,66 @@ int main() {
             *iter = el;
         }
         AlgoritmAdjDif(list);
+      } break;
+      case 9: {
+        std::cout << "---------------------------------------------------------------------------------------" << std::endl;
+        std::cout << "Задание: Дан вектор v0 и набор векторов." << std::endl;
+        std::cout << "Найти количество векторов VI, I = 1, …, N, в которых содержатся все элементы вектора V0" << std::endl;
+
+
+        std::vector<std::vector<int>> vects{
+          { 1,3,4,5 },
+          { -1,-2,-3 },
+          { 0,0,0 },
+          { 1,1,1,3,3,4,5 },
+        };
+
+        std::cout << "Набор векторов: " << std::endl;
+        for (auto v : vects) {
+          for (auto iter = v.begin(); iter != v.end(); iter++) {
+            std::cout << *iter << " ";
+          }
+          std::cout << std::endl;
+        }
+
+        int n = 0;
+        bool f = 1;
+        std::cout << "Введите количество элементов в векторе: ";
+        while (f) {
+          std::cin >> n;
+          if (n > 0) {
+            f = 0;
+          }
+          else {
+            std::cout << "Попробуйте снова: ";
+          }
+        }
+        std::vector<int> vect(n);
+        int el = 0;
+
+        std::cout << "Заполните Vector." << std::endl;
+        for (auto iter = vect.begin(); iter != vect.end(); iter++) {
+          std::cout << "Введите число: ";
+          std::cin >> el;
+          *iter = el;
+        }
+        VectorsIncludeInVect(vect, vects);
+      } break;
+      case 10: {
+        std::cout << "---------------------------------------------------------------------------------------" << std::endl;
+        std::cout << "Задание: Дан вектор заполненный строками." << std::endl;
+        std::cout << "Определить суммарную длину слов, начинающихся с одной и той же буквы." << std::endl;
+
+        std::vector<std::string> vect{ 
+          "BLUEBERRY", "BANANA", "APRICOT", "CHERRY",
+          "APPLE", "DDDDD", "AVOCADO", "BERRY", "CITRUS" 
+        };
+        for (auto iter = vect.begin(); iter != vect.end(); iter++) {
+          std::cout << *iter << " ";
+        }
+        std::cout << std::endl;
+
+        CountLetterInWords(vect);
       } break;
       default: {
         std::cout << "Такого задания нет." << std::endl;

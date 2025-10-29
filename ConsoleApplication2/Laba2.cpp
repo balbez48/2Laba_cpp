@@ -115,7 +115,7 @@ void InsertElemList(std::list<int> &list) {
   auto iter_list_negative = std::find_if(list.begin(), 
                                          list.end(), 
                                          [](int n) { 
-                                         return n < 0; 
+                                           return n < 0; 
                                          });
   if (iter_list_negative != list.end()) {
     iter_list_negative++;
@@ -129,7 +129,7 @@ void InsertElemList(std::list<int> &list) {
                                          });
   if (iter_list_positive != list.rend()) {
     iter_list_positive++;
-    list.insert(iter_list_positive.base(), first_elem);//разобратьс€ с base()
+    list.insert(iter_list_positive.base(), first_elem);
   }
 
   for (auto it_list = list.begin(); it_list != list.end(); it_list++) {
@@ -154,12 +154,12 @@ void VectRemCopIf(std::vector<int>& vect){
   int n = vect.size() / 2;
   std::vector<int> v0(vect.begin() + n, vect.end());//скопировали
   
-  auto iter_vect = std::remove_copy_if(v0.begin(),
-                                       v0.end(),
-                                       vect.begin(),
-                                       [](int x) {
-                                         return x <= 0;
-                                       }
+  std::remove_copy_if(v0.begin(),
+                      v0.end(),
+                      vect.begin(),
+                      [](int x) {
+                        return x <= 0;
+                      }
   );
   
   std::cout << "–езультат" << std::endl;
@@ -178,7 +178,7 @@ void VectRemCopIf(std::vector<int>& vect){
 void DeqEnglishWords(std::deque<std::string> &deq) {
     std::sort(deq.begin(), 
               deq.end(), 
-              [](const std::string& left, const std::string& right) {
+              [](std::string left, std::string right) {
               if (left.length() != right.length()) {
                 return left.length() > right.length();
               }
@@ -221,4 +221,49 @@ void AlgoritmAdjDif(std::list<int>& list) {
     for (auto iter = V.begin(); iter != V.end(); iter++) {
         std::cout << *iter << " ";
     }
+}
+
+
+
+//9.1. ƒан вектор V0, целое число N (> 0) и набор векторов V1, Е, VN. »звестно, что размер вектора V0 
+//не превосходит размера любого из векторов V1, Е, VN. Ќайти количество векторов VI, I = 1, Е, N, 
+//в которых содержатс€ все элементы вектора V0 (без учета их повторений). »спользовать 
+//алгоритм includes, примен€€ его в цикле к двум множествам, одно из которых создано на основе 
+//вектора V0, а другое на очередной итерации содержит элементы очередного из векторов VI, I = 
+//1, Е, N.
+void VectorsIncludeInVect(std::vector<int> v0, std::vector<std::vector<int>> vects) {
+
+  int cnt = 0;
+  std::set<int> v0_set(v0.begin(), v0.end());
+  for (auto vect : vects) {
+    std::set<int> cur_set(vect.begin(), vect.end());
+    if (std::includes(cur_set.begin(), cur_set.end(), v0_set.begin(), v0_set.end())) {
+      cnt++;
+    }
+  }
+
+  std::cout << " оличество векторов, которые содержатс€ v0 - " << cnt << std::endl;
+}
+
+
+//10.2 ƒан вектор V, элементами которого €вл€ютс€ английские слова, набранные заглавными
+//буквами.ќпределить суммарную длину слов, начинающихс€ с одной и той же буквы, и вывести
+//все различные буквы, с которых начинаютс€ элементы вектора V, вместе с суммарной длиной
+//этих элементов(в алфавитном пор€дке букв); длину выводить сразу после соответствующей
+//буквы.»спользовать вспомогательное отображение M, ключами которого €вл€ютс€ начальные
+//буквы элементов вектора V, а значени€ми Ч суммарна€ длина этих элементов.ѕри заполнении
+//отображени€ M не использовать условные конструкции(достаточно операций индексировани€
+//[], инкремента и функции - члена size дл€ строк).Ёлементы вектора V(при заполнении
+//отображени€ M) и элементы отображени€ M(при выводе полученных результатов) перебирать
+//в цикле с параметром - итератором соответствующего контейнера.
+void CountLetterInWords(std::vector<std::string> vect) {
+  std::map<char, int> M;
+
+  for (auto iter = vect.begin(); iter != vect.end(); iter++) {
+      char letter = (*iter)[0];
+      M[letter] += (*iter).size();
+  }
+  for (auto iter = M.begin(); iter != M.end(); iter++) {
+    std::cout << (*iter).first << " " << (*iter).second << std::endl;
+  }
 }

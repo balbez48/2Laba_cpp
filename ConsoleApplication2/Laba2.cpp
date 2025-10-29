@@ -87,14 +87,15 @@ void RemoveCopyIf() {
     
   int position = 1;
 
-  std::remove_copy_if(start,
-                      end,
-                      output,
-                      [&position](float x) {
-                        bool remove = position % 2;
-                        position++;
-                        return remove;
-                      }
+  std::remove_copy_if(
+      start,
+      end,
+      output,
+      [&position](float x) {
+        bool remove = position % 2;
+        position++;
+        return remove;
+      }
   );  
   std::cin.clear();
 }
@@ -112,21 +113,27 @@ void RemoveCopyIf() {
 //r.base() или(++r).base().
 void InsertElemList(std::list<int> &list) {
   int first_elem = list.front();
-  auto iter_list_negative = std::find_if(list.begin(), 
-                                         list.end(), 
-                                         [](int n) { 
-                                           return n < 0; 
-                                         });
+  auto iter_list_negative = std::find_if(
+      list.begin(), 
+      list.end(), 
+      [](int n) { 
+        return n < 0; 
+      }
+  );
+
   if (iter_list_negative != list.end()) {
     iter_list_negative++;
     list.insert(iter_list_negative, first_elem);
   }
 
-  auto iter_list_positive = std::find_if(list.rbegin(),
-                                         list.rend(),
-                                         [](int n) {
-                                           return n > 0;
-                                         });
+  auto iter_list_positive = std::find_if(
+      list.rbegin(),
+      list.rend(),
+      [](int n) {
+        return n > 0;
+      }
+  );
+
   if (iter_list_positive != list.rend()) {
     iter_list_positive++;
     list.insert(iter_list_positive.base(), first_elem);
@@ -154,12 +161,13 @@ void VectRemCopIf(std::vector<int>& vect){
   int n = vect.size() / 2;
   std::vector<int> v0(vect.begin() + n, vect.end());//скопировали
   
-  std::remove_copy_if(v0.begin(),
-                      v0.end(),
-                      vect.begin(),
-                      [](int x) {
-                        return x <= 0;
-                      }
+  std::remove_copy_if(
+      v0.begin(),
+      v0.end(),
+      vect.begin(),
+      [](int x) {
+        return x <= 0;
+      }
   );
   
   std::cout << "–езультат" << std::endl;
@@ -176,14 +184,16 @@ void VectRemCopIf(std::vector<int>& vect){
 //единственный вызов алгоритма sort с параметром Ч функциональным объектом, включающим
 //как сравнение строк, так и сравнение их длин.
 void DeqEnglishWords(std::deque<std::string> &deq) {
-    std::sort(deq.begin(), 
-              deq.end(), 
-              [](std::string left, std::string right) {
-              if (left.length() != right.length()) {
-                return left.length() > right.length();
-              }
-              return left < right;
-    });
+    std::sort(
+        deq.begin(), 
+        deq.end(), 
+        [](std::string left, std::string right) {
+          if (left.length() != right.length()) {
+            return left.length() > right.length();
+          }
+          return left < right;
+        }
+    );
 
     std::cout << "–езультат: " << std::endl;
     for (auto it_deq = deq.begin(); it_deq != deq.end(); it_deq++) {
@@ -207,12 +217,13 @@ void AlgoritmAdjDif(std::list<int>& list) {
     int n = list.size();
     std::vector<float> V(n);
 
-    std::adjacent_difference(list.begin(),
-                             list.end(),
-                             V.begin(),
-                             [](int a, int b) {
-                               return (a + b) / 2.0;
-                             }
+    std::adjacent_difference(
+        list.begin(),
+        list.end(),
+        V.begin(),
+        [](int a, int b) {
+          return (a + b) / 2.0;
+        }
     );
 
     V.erase(V.begin()); //удалили первый элемент, который скопировалс€
